@@ -1,0 +1,42 @@
+{
+  "name": "masao-editor-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/electron": "^1.4.37",
+    "@types/react": "^15.0.23",
+    "@types/react-dom": "^15.5.0",
+    "@types/react-redux": "^4.4.40",
+    "file-loader": "^0.11.1",
+    "gulp": "^3.9.1",
+    "gulp-clone": "^1.0.0",
+    "gulp-typed-css-modules": "^1.0.0",
+    "gulp-typescript": "^3.1.6",
+    "img-loader": "^2.0.0",
+    "json-loader": "^0.5.4",
+    "postcss-loader": "^1.3.3",
+    "postcss-nested": "^1.0.1",
+    "source-map-loader": "^0.2.1",
+    "typescript": "^2.3.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1",
+    "webpack-merge": "^4.1.0",
+    "webpack-node-externals": "^1.5.4"
+  },
+  "dependencies": {
+    "electron": "^1.6.6",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-saga": "^0.15.1"
+  }
+}
