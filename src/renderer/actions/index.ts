@@ -4,7 +4,11 @@ import {
 import {
     TreeGroupAction,
 } from './tree-group';
+import {
+    ItemAction,
+} from './item';
 
 export type Action =
     GroupAction |
-    TreeGroupAction;
+    TreeGroupAction |
+    ItemAction;

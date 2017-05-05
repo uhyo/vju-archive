@@ -2,15 +2,32 @@
 import {
     GroupDoc,
 } from '../../types/group';
+import {
+    ItemDoc,
+} from '../../types/item';
 
 import {
     DB_NAME,
     DB_VERSION,
-    STORE_GROUP,
 } from './settings';
+
+import {
+    initGroup,
+    getAllGroups,
+} from './group';
+import {
+    initItem,
+    loadItemQuery,
+} from './item';
+
+import {
+    ItemsQuery,
+} from '../../actions/item';
 
 export class Db{
     protected db: IDBDatabase | undefined = void 0;
+    protected initState: 'none' | 'ongoing' | 'done' = 'none';
+    protected initPending: Array<(err: Error | undefined, db: IDBDatabase)=>void> = [];
     /**
      * Initialize a connection to a DB.
      */
@@ -33,39 +50,8 @@ export class Db{
                 } = req;
                 // DBのupgrade
                 if (e.oldVersion < 1){
-                    const st = db.createObjectStore(STORE_GROUP, {
-                        keyPath: 'id',
-                        autoIncrement: false,
-                    });
-                    // DEBUG data
-                    st.add({
-                        id: 'group1',
-                        name: 'ぐる〜〜ぷ',
-                        type: 'folder',
-                        treeId: 'tree1',
-                        children: ['group2', 'group3'],
-                    });
-                    st.add({
-                        id: 'group2',
-                        name: 'グループ2',
-                        type: 'folder',
-                        treeId: 'tree1',
-                        children: ['group4'],
-                    });
-                    st.add({
-                        id: 'group3',
-                        name: 'グループ3',
-                        type: 'folder',
-                        treeId: 'tree1',
-                        children: [],
-                    });
-                    st.add({
-                        id: 'group4',
-                        name: '群4',
-                        type: 'folder',
-                        treeId: 'tree1',
-                        children: [],
-                    });
+                    initGroup(db);
+                    initItem(db);
                 }
             };
         });
@@ -74,33 +60,67 @@ export class Db{
      * Get initialized db.
      */
     protected async getDb(): Promise<IDBDatabase>{
-        if (this.db != null){
+        if (this.initState==='done' && this.db != null){
             return this.db;
         }
-        const db = await this.init();
-        if (this.db != null){
-            return this.db;
+        if (this.initState==='ongoing'){
+            // pendingに追加
+            return this.awaitGetDb();
         }
-        this.db = db;
-        return db;
+        if (this.initState !== 'none'){
+            throw new Error('Invalid State');
+        }
+        // 自らinitを開始
+        this.initState = 'ongoing';
+        try {
+            const db = await this.init();
+            this.db = db;
+            for (const f of this.initPending){
+                setImmediate(()=>{
+                    f(void 0, db);
+                });
+            }
+            this.initState = 'done';
+            this.initPending = [];
+            return db;
+        }catch (e){
+            for (const f of this.initPending){
+                setImmediate(()=>{
+                    f(e, (void 0) as any);
+                });
+            }
+            this.initState = 'none';
+            this.initPending = [];
+            throw e;
+        }
+    }
+    /**
+     * Wait for ongoing initialization.
+     */
+    protected awaitGetDb(): Promise<IDBDatabase>{
+        return new Promise((resolve, reject)=>{
+            this.initPending.push((err, db)=>{
+                if (err != null){
+                    reject(err);
+                }else{
+                    resolve(db);
+                }
+            });
+        });
     }
     /**
      * Get all groups stored in the DB.
      */
-    public getAllGroups(): Promise<Array<GroupDoc>>{
-        return this.getDb()
-        .then(db=> new Promise((resolve, reject)=>{
-            const transaction = db.transaction(STORE_GROUP, 'readonly');
-            const store = transaction.objectStore(STORE_GROUP);
-            // const req = store.getAll();
-            const req: IDBRequest = (store as any).getAll();
-            req.onerror = ()=>{
-                reject(req.error);
-            };
-            req.onsuccess = ()=>{
-                resolve(req.result);
-            };
-        }));
+    public async getAllGroups(): Promise<Array<GroupDoc>>{
+        const db = await this.getDb();
+        return getAllGroups(db);
+    }
+    /**
+     * Get items which satisfy given query.
+     */
+    public async getItems(query: ItemsQuery): Promise<Array<ItemDoc>>{
+        const db = await this.getDb();
+        return loadItemQuery(db, query);
     }
 }
 

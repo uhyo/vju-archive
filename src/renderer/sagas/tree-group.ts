@@ -30,6 +30,7 @@ export function* treeGroupSaga(){
 
 function* handleAction(action: Action){
     if (action.type === 'group:load-start'){
+        // グループ情報のロードを指示された
         const docs: Array<GroupDoc> = yield call([db, 'getAllGroups']);
         const {
             groups,

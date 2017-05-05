@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import TreeGroup from '../containers/tree-group';
-import Images from '../components/images';
+import Items from '../components/items';
 
 import '../css/root.css';
 
@@ -14,7 +14,7 @@ export default class App extends React.Component<{}, {}>{
                 <TreeGroup/>
             </div>
             <div className={styles.images}>
-                <Images/>
+                <Items/>
             </div>
         </div>;
     }
