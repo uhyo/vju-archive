@@ -1,4 +1,16 @@
-
+/**
+ * Set root of current tree.
+ */
+export interface SetRootAction{
+    type: 'tree-group:set-root';
+    id: string;
+}
+export function setRootAction(id: string): SetRootAction{
+    return {
+        type: 'tree-group:set-root',
+        id,
+    };
+}
 /**
  * Select a group.
  */
@@ -13,4 +25,6 @@ export function selectGroupAction(id: string): SelectGroupAction{
     };
 }
 
-export type TreeGroupAction = SelectGroupAction;
+export type TreeGroupAction =
+    SetRootAction |
+    SelectGroupAction;

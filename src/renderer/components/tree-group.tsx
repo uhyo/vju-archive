@@ -22,17 +22,17 @@ export default class TreeGroup extends React.Component<IPropTreeGroup, {}>{
         const {
             groups,
             treeGroup: {
-                parent,
+                root,
                 current,
             },
             onSelect,
         } = this.props;
 
-        if (parent == null){
+        if (root == null){
             return <div>Hey!</div>;
         }
         return <div className={styles.wrapper}>
-            <GroupNode groups={groups} id={parent} open={current} level={0} onSelect={onSelect} />
+            <GroupNode groups={groups} id={root} open={current} level={0} onSelect={onSelect} />
         </div>;
     }
 }
@@ -87,7 +87,7 @@ class GroupNode extends React.Component<IPropGroupNode, {}>{
             <div className={cl} style={nameStyle} onClick={handleClick}>{name}</div>
             <div className={styles.children}>{
                 children.map(id=>{
-                    return <GroupNode groups={groups} id={id} open={open} level={level+1} onSelect={onSelect} />;
+                    return <GroupNode key={id} groups={groups} id={id} open={open} level={level+1} onSelect={onSelect} />;
                 })
             }</div>
         </div>;

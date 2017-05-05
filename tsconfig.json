@@ -2,6 +2,7 @@
     "compilerOptions":{
       "lib": ["dom", "es2015"],
       "alwaysStrict": true,
+      "importHelpers": true,
       "jsx":"React",
       "module": "es2015",
       "moduleResolution": "Node",
@@ -15,7 +16,7 @@
       "rootDirs": ["src/", "dist-typing/"],
       "strictNullChecks": true,
       "removeComments": true,
-      "target":"es5"
+      "target":"es2015"
     },
     "include": ["src/**/*.ts", "src/**/*.tsx"],
     "exclude": ["node_modules"]
