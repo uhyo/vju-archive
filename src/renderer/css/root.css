@@ -2,6 +2,8 @@ html {
   --theme-background: hsl(217, 26%, 35%);
   --theme-background-l: hsl(217, 28%, 53%);
   --theme-text-color: #ffffff;
+
+  height: 100%;
 }
 
 * {
@@ -9,9 +11,15 @@ html {
 }
 
 body {
+  font-family: sans-serif;
   background-color: var(--theme-background);
   color: var(--theme-text-color);
 
+  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+:global(#app) {
+  height: 100%;
 }

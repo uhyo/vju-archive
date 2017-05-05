@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.tree-group {
+  flex: 20rem 0 0;
+  border-right: 1px solid var(--theme-text-color);
+}
+.images {
+  flex: auto 1 0;
+}
