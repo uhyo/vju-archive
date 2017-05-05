@@ -1,4 +1,7 @@
 // tree view of groups
+import {
+    Action,
+} from '../actions/index';
 
 export interface GroupTreeState{
     // parent of current tree
@@ -15,9 +18,15 @@ const initialData: GroupTreeState = {
 */
 const initialData: GroupTreeState = {
     parent: 'group1',
-    current: null,
+    current: 'group2',
 };
 
-export default function groupTreeReducer(state: GroupTreeState = initialData){
+export default function groupTreeReducer(state: GroupTreeState = initialData, action: Action){
+    if (action.type === 'tree-group:select-group'){
+        return {
+            ...state,
+            current: action.id,
+        };
+    }
     return state;
 }

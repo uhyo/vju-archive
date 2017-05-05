@@ -1,6 +1,24 @@
 .wrapper {
 }
 
+.group {
+}
+
+.name {
+  padding: 4px;
+  cursor: pointer;
+  background-color: transparent;
+  transition: 0.3s ease background-color, 0.3s ease color;
+}
+
+.name:not(.open):hover {
+  background-color: var(--theme-background-l);
+}
+
+.open {
+  background-color: var(--theme-text-color);
+  color: var(--theme-background);
+}
+
 .children {
-  margin: 0 0 0 1.4em;
 }
