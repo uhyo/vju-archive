@@ -5,6 +5,11 @@ import {
     GroupDoc,
 } from '../../types/group';
 
+
+// ID of special groups.
+export const GROUP_ROOT = 'special$root';
+export const GROUP_UNDISPOSED = 'special$undisposed';
+
 /**
  * Initialize groups store.
  */
@@ -12,6 +17,21 @@ export function initGroup(db: IDBDatabase): Promise<void>{
     const st = db.createObjectStore(STORE_GROUP, {
         keyPath: 'id',
         autoIncrement: false,
+    });
+    // Special groups
+    st.add({
+        id: GROUP_ROOT,
+        name: 'root',
+        type: 'folder',
+        treeId: GROUP_ROOT,
+        children: [GROUP_UNDISPOSED, 'group1'],
+    });
+    st.add({
+        id: GROUP_UNDISPOSED,
+        name: '未整理',
+        type: 'folder',
+        treeId: GROUP_UNDISPOSED,
+        children: [],
     });
     // DEBUG data
     st.add({

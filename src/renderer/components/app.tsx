@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import TreeGroup from '../containers/tree-group';
-import Items from '../components/items';
+import Items from '../containers/items';
 
 import '../css/root.css';
 

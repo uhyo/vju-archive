@@ -13,7 +13,7 @@ import {
     loadEndAction,
 } from '../actions/group';
 import {
-    setRootAction,
+    setRootsAction,
 } from '../actions/tree-group';
 import {
     Group,
@@ -21,6 +21,10 @@ import {
 } from '../types/group';
 
 import db from './db';
+
+import {
+    GROUP_ROOT,
+} from './db/group';
 
 export function* treeGroupSaga(){
     yield takeEvery([
@@ -34,16 +38,16 @@ function* handleAction(action: Action){
         const docs: Array<GroupDoc> = yield call([db, 'getAllGroups']);
         const {
             groups,
-            root,
+            roots,
         } = loadGroups(docs);
         yield put(loadEndAction(groups));
-        yield put(setRootAction(root));
+        yield put(setRootsAction(roots));
     }
 }
 
 interface LoadGroupsResult{
     groups: Record<string, Group>;
-    root: string;
+    roots: Array<string>;
 }
 
 /**
@@ -80,21 +84,10 @@ function loadGroups(docs: Array<GroupDoc>): LoadGroupsResult{
         }
     }
     // rootを探す
-    let root: string | null = null;
-    for (const key in groups){
-        const {
-            parent,
-        } = groups[key];
-        if (parent == null){
-            root = key;
-            break;
-        }
-    }
-    if (root == null){
-        throw new Error('Could not find root group');
-    }
+    const r = groups[GROUP_ROOT];
+    const roots = r != null ? r.children : [];
     return {
         groups,
-        root,
+        roots,
     };
 }
