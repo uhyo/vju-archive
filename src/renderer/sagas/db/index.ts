@@ -59,7 +59,7 @@ export class Db{
     /**
      * Get initialized db.
      */
-    protected async getDb(): Promise<IDBDatabase>{
+    public async getDb(): Promise<IDBDatabase>{
         if (this.initState==='done' && this.db != null){
             return this.db;
         }

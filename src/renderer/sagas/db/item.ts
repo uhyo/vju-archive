@@ -81,5 +81,24 @@ function resolveQuery(query: ItemsQuery): ResolvedQuery{
                 range: IDBKeyRange.only(query.id),
             };
         }
+        case 'hash': {
+            return {
+                index: INDEX_HASH,
+                range: IDBKeyRange.only(query.hash),
+            };
+        }
     }
+}
+
+/**
+ * Insert a new item.
+ */
+export function insertItem(db: IDBDatabase, item: ItemDoc): Promise<void>{
+    return new Promise<void>((resolve, reject)=>{
+        const transaction = db.transaction(STORE_ITEM, 'readwrite');
+        const st = transaction.objectStore(STORE_ITEM);
+        const req = st.add(item);
+        req.onerror = ()=>reject(req.error);
+        req.onsuccess = ()=> resolve();
+    });
 }

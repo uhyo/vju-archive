@@ -54,6 +54,9 @@ const baseConfig = {
         //bye bye, FIXME...
         hints: false,
     },
+    externals: [
+        nodeExternals(),
+    ],
     
     devServer: {
         contentBase: './dist',
@@ -62,7 +65,9 @@ const baseConfig = {
 };
 
 module.exports = [
-    baseConfig,
+    webpackMerge(baseConfig, {
+        target: 'electron-renderer',
+    }),
     webpackMerge(baseConfig, {
         entry: './dist-es6/main/index.js',
         target: 'node',
@@ -73,8 +78,5 @@ module.exports = [
         node: {
             __dirname: false,
         },
-        externals: [
-            nodeExternals(),
-        ],
     }),
 ];

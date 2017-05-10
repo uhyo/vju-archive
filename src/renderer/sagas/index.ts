@@ -14,6 +14,9 @@ import {
 import {
     itemsSaga,
 } from './item';
+import {
+    errorSaga,
+} from './error';
 
 export default function* rootSaga(){
     yield all([
@@ -21,5 +24,6 @@ export default function* rootSaga(){
         call(treeGroupSaga),
         call(itemsSaga),
         call(initSaga),
+        call(errorSaga),
     ]);
 }

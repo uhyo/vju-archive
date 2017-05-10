@@ -22,6 +22,18 @@ export default function itemReducer(state: ItemsState = initialData, action: Act
                 items: action.items,
             };
         }
+        case 'items:new-item-added': {
+            // THIS SHOULD BE RECONSIDERED
+            const {
+                item,
+            } = action;
+            return {
+                items: {
+                    ... state.items,
+                    [item.id]: item,
+                },
+            };
+        }
         default: {
             return state;
         }

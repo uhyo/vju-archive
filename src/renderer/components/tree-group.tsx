@@ -81,9 +81,10 @@ class GroupNode extends React.Component<IPropGroupNode, {}>{
         const handleClick = ()=>{
             onSelect(id);
         };
-        return <div className={styles.group}>
+
+        return <div>
             <div className={cl} style={nameStyle} onClick={handleClick}>{name}</div>
-            <div className={styles.children}>{
+            <div>{
                 children.map(id=>{
                     return <GroupNode key={id} groups={groups} id={id} open={open} level={level+1} onSelect={onSelect} />;
                 })

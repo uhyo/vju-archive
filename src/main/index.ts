@@ -3,6 +3,10 @@ import {
     BrowserWindow,
 } from 'electron';
 
+import {
+    setMenu,
+} from './menu';
+
 import * as path from 'path';
 import * as url from 'url';
 
@@ -24,7 +28,10 @@ function createWindow(){
 }
 
 
-app.on('ready', createWindow);
+app.on('ready', ()=>{
+    setMenu();
+    createWindow();
+});
 
 app.on('window-all-closed', ()=>{
     if (process.platform !== 'darwin'){

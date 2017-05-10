@@ -7,8 +7,12 @@ import {
 import {
     ItemAction,
 } from './item';
+import {
+    ErrorAction,
+} from './error';
 
 export type Action =
     GroupAction |
     TreeGroupAction |
-    ItemAction;
+    ItemAction |
+    ErrorAction;
