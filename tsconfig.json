@@ -1,6 +1,6 @@
 {
     "compilerOptions":{
-      "lib": ["dom", "es2015"],
+      "lib": ["dom", "es2015", "es2016.array.include"],
       "alwaysStrict": true,
       "importHelpers": true,
       "jsx":"React",

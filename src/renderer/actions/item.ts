@@ -76,9 +76,43 @@ export function newItemAddedAction(item: Item): NewItemAddedAction{
     };
 }
 
+/**
+ * Input action:
+ * Item is moved/copied from a group to another group.
+ */
+export interface MoveCopyAction{
+    type: 'items:move-copy';
+    /**
+     * Item id.
+     */
+    id: string;
+    /**
+     * move type.
+     */
+    action: 'move' | 'copy';
+    /**
+     * old group id.
+     */
+    oldGroup: string | undefined;
+    /**
+     * new group id.
+     */
+    newGroup: string;
+}
+export function moveCopyAction(id: string, action: 'move' | 'copy', oldGroup: string | undefined, newGroup: string): MoveCopyAction{
+    return {
+        type: 'items:move-copy',
+        id,
+        action,
+        oldGroup,
+        newGroup,
+    };
+}
+
 export type ItemAction =
     LoadStartAction |
     LoadEndAction |
     OpenFileDialogAction |
-    NewItemAddedAction;
+    NewItemAddedAction |
+    MoveCopyAction;
 

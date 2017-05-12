@@ -1,0 +1,11 @@
+.list-wrapper {
+}
+
+.list-header {
+  padding: 4px;
+  border-bottom: 1px solid var(--theme-text-color);
+}
+
+/* List part of items. */
+.list-main {
+}

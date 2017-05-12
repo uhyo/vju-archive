@@ -2,10 +2,18 @@ import {
     connect,
 } from 'react-redux';
 
-import ItemsComponent from '../components/items';
+import ItemListComponent from '../components/items/list';
 
-const ItemsContainer = connect(
-    ({items})=>({items}),
-)(ItemsComponent);
+const ItemListContainer = connect(
+    ({
+        items,
+        treeGroup: {
+            current,
+        },
+    })=>({
+        items,
+        group: current || void 0,
+    }),
+)(ItemListComponent);
 
-export default ItemsContainer;
+export default ItemListContainer;

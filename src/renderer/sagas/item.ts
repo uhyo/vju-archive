@@ -32,6 +32,7 @@ import {
 import {
     loadItemQuery,
     insertItem,
+    movecopyItem,
 } from './db/item';
 import {
     hashFile,
@@ -44,6 +45,7 @@ export function* itemsSaga(){
     yield takeEvery([
         'items:load-start',
         'items:open-file-dialog',
+        'items:move-copy',
     ], handleAction);
 }
 
@@ -82,6 +84,10 @@ function* handleAction(action: Action){
                 for (const p of filepaths){
                     yield call(loadOneFileSaga, p);
                 }
+                break;
+            }
+            case 'items:move-copy': {
+                yield db.getDb().then(db => movecopyItem(db, action.id, action.action === 'move', action.oldGroup, action.newGroup));
                 break;
             }
         }

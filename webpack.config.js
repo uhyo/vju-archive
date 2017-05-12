@@ -33,7 +33,7 @@ const baseConfig = {
             },
             {
                 test: /\.css$/,
-                loaders: ['style-loader', 'css-loader?modules&camelCase', 'postcss-loader'],
+                loaders: ['style-loader', 'css-loader?modules&camelCase&importLoaders=1', 'postcss-loader'],
             },
             {
                 test: /\.json$/,

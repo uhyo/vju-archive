@@ -11,7 +11,7 @@
   transition: 0.3s ease background-color, 0.3s ease color;
 }
 
-.name:not(.open):hover {
+.name:not(.open):hover, .name:not(.open).hover {
   background-color: var(--theme-background-l);
 }
 

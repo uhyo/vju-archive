@@ -1,0 +1,5 @@
+{
+  "--theme-background": "hsl(217, 26%, 35%)",
+  "--theme-background-l": "hsl(217, 28%, 53%)",
+  "--theme-text-color": "#ffffff"
+}

@@ -102,3 +102,45 @@ export function insertItem(db: IDBDatabase, item: ItemDoc): Promise<void>{
         req.onsuccess = ()=> resolve();
     });
 }
+
+/**
+ * Move/copy an item to a group.
+ */
+export function movecopyItem(db: IDBDatabase, item: string, move: boolean, oldGroup: string | undefined, newGroup: string): Promise<void>{
+    return new Promise<void>((resolve, reject)=>{
+        const transaction = db.transaction(STORE_ITEM, 'readwrite');
+        const st = transaction.objectStore(STORE_ITEM);
+        const req = st.get(item);
+        req.onerror = ()=>{
+            reject(req.error);
+            transaction.abort();
+        };
+        req.onsuccess = ()=>{
+            const item: ItemDoc = req.result;
+            const {
+                groups,
+            } = item;
+            let groups2;
+            if (move && oldGroup != null){
+                // moveなのでoldgroupを抜く
+                groups2 = groups.filter(x=> x !== oldGroup)
+            }else{
+                groups2 = groups;
+            }
+            // newgroupを追加
+            if (!groups2.includes(newGroup)){
+                groups2.push(newGroup);
+            }
+            // 新しいitemを追加
+            const req2 = st.put({
+                ... item,
+                groups: groups2,
+            });
+            req2.onerror = ()=>{
+                reject(req.error);
+                transaction.abort();
+            };
+            req2.onsuccess = ()=>resolve();
+        };
+    });
+}

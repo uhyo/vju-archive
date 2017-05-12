@@ -1,0 +1,14 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table tbody tr:hover {
+  background-color: var(--theme-background-l);
+}
+
+.table th, .table td {
+  border: 1px solid var(--theme-background-l);
+  padding: 2px;
+  cursor: default;
+}
