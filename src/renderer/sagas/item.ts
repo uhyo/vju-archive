@@ -6,6 +6,7 @@ import {
     call,
     put,
     cps,
+    select,
 } from 'redux-saga/effects';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -14,12 +15,16 @@ import {
     Action,
 } from '../actions/index';
 import {
+    loadStartAction,
     loadEndAction,
     newItemAddedAction,
 } from '../actions/item';
 import {
     emitErrorAction,
 } from '../actions/error';
+import {
+    currentGroupSelector,
+} from '../selectors/tree-group';
 import {
     ItemDoc,
     Item,
@@ -84,10 +89,23 @@ function* handleAction(action: Action){
                 for (const p of filepaths){
                     yield call(loadOneFileSaga, p);
                 }
+                // ロードしなおしが必要
+                // TODO 最適化できる?
+                const current = yield select(currentGroupSelector);
+                yield put(loadStartAction({
+                    type: 'parent-group',
+                    id: current,
+                }));
                 break;
             }
             case 'items:move-copy': {
                 yield db.getDb().then(db => movecopyItem(db, action.id, action.action === 'move', action.oldGroup, action.newGroup));
+
+                const current = yield select(currentGroupSelector);
+                yield put(loadStartAction({
+                    type: 'parent-group',
+                    id: current,
+                }));
                 break;
             }
         }
