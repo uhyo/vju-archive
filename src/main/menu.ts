@@ -19,5 +19,5 @@ export function setMenu(): void{
         },
         label: 'Add File',
     });
-    (menu.items[0].submenu as any).append(addFileMenu);
+    (menu.items[0] as any).submenu.append(addFileMenu);
 }

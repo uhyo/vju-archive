@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
     connect,
 } from 'react-redux';
@@ -12,7 +13,7 @@ import {
 
 import TreeGroupComponent from '../components/tree-group';
 
-const TreeGroupContainer = connect(
+const TreeGroupContainer: React.ComponentClass<{}> = connect(
     ({groups, treeGroup})=>({groups, treeGroup}),
     (dispatch)=>({
         onSelect(id: string){
