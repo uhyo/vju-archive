@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.value {
+  cursor: pointer;
+  padding: 2px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.selected {
+  background-color: var(--theme-text-color);
+  color: var(--theme-background);
+}

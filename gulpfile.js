@@ -28,7 +28,7 @@ gulp.task('tsc', ()=>{
 });
 
 gulp.task('watch-tsc', ['tsc'], ()=>{
-    gulp.watch(['src/**/*.ts', 'src/**/*.tsx'], ['tsc']);
+    gulp.watch(['src/**/*.ts', 'src/**/*.tsx', 'dist-typing/**/*.d.ts'], ['tsc']);
 });
 
 // ---------- webpack
