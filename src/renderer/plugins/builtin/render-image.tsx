@@ -2,6 +2,7 @@ import {
     extname,
 } from 'path';
 import * as React from 'react';
+import styled from 'styled-components';
 
 import {
     Plugin,
@@ -9,6 +10,15 @@ import {
 import {
     Item,
 } from '../../types/item';
+
+const ImgWrapper = styled.div`
+    margin: 1em 0;
+
+    text-align: center;
+`;
+const Img = styled.img`
+    max-width: 100%;
+`;
 
 export default class RenderImagePlugin implements Plugin{
     canRenderItem({fullpath}: Item): boolean{
@@ -19,8 +29,8 @@ export default class RenderImagePlugin implements Plugin{
         return false;
     }
     renderItem({fullpath}: Item){
-        return <div>
-            <img src={fullpath} />
-        </div>
+        return <ImgWrapper>
+            <Img src={fullpath} />
+        </ImgWrapper>
     }
 }

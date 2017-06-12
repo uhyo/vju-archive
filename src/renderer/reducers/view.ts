@@ -11,7 +11,7 @@ export interface ViewState{
 
 const initialData: ViewState = {
     view: {
-        type: 'table-view',
+        type: 'scroll-view',
     },
 };
 

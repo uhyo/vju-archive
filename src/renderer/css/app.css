@@ -20,5 +20,6 @@
 
 
 .images {
-  flex: auto 1 0;
+  flex: auto 1 1;
+  overflow: auto;
 }
