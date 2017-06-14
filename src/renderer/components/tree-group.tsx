@@ -7,10 +7,11 @@ import {
     GroupTreeState,
 } from '../reducers/tree-group';
 
-
 import {
     ItemDropArea,
 } from './items/draggable';
+
+import Icon from './common/icon';
 
 import * as styles from '../css/tree-group.css';
 
@@ -122,7 +123,8 @@ class GroupNode extends React.Component<IPropGroupNode, IStateGroupNode>{
                 onDragStateChange={handleDragStateChange}
                 onDrop={handleDrop}>
                 <div className={cl} style={nameStyle} onClick={handleClick}>
-                    {name}
+                    <Icon name="folder-open" />
+                    {" "+name}
                 </div>
             </ItemDropArea>
             <div>{

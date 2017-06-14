@@ -8,6 +8,4 @@ const manager = new PluginManager();
 
 manager.addPlugin(new RenderImagePlugin());
 
-
-
 export default manager;

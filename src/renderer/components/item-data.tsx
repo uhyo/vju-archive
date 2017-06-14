@@ -6,6 +6,10 @@ import {
     Group,
 } from '../types/group';
 
+import plugins from '../plugins';
+
+import Icon from './common/icon';
+
 import * as styles from '../css/item-data.css';
 
 export interface IPropItemData{
@@ -24,13 +28,13 @@ const ItemData = ({
         </div>
     }
     return <div>
-        <p><b>{item.name}</b></p>
+        <p className={styles.name}>{plugins.renderIcon(item)}{" "}<b>{item.name}</b></p>
         <ul className={styles.groupList}>{
             groups.map(({id, name})=>{
                 const handleClick = onSelectGroup && (()=>{
                     onSelectGroup(id);
                 });
-                return <li key={id} className={styles.group} onClick={handleClick}>{name}</li>;
+                return <li key={id} className={styles.group} onClick={handleClick}><Icon name="folder" />{" "+name}</li>;
             })
         }</ul>
     </div>

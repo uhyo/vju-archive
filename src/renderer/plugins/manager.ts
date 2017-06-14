@@ -14,6 +14,18 @@ export default class PluginManager{
     protected defaultPlugin: Plugin = new DefaultPlugin();
 
     /**
+     * Render an icon for given item using registerd plugins.
+     */
+    renderIcon(item: Item){
+        for (const p of this.plugins){
+            if (p.canRenderItem(item)){
+                return p.renderIcon(item);
+            }
+        }
+        return this.defaultPlugin.renderItem(item);
+    }
+
+    /**
      * Render given item using registered plugins.
      */
     renderItem(item: Item){

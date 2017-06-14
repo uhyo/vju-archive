@@ -4,6 +4,8 @@ import {
     Item,
 } from '../../types/item';
 
+import plugins from '../../plugins';
+
 import * as styles from '../../css/table-view.css';
 
 import {
@@ -35,6 +37,7 @@ export default ({
     return <table className={styles.table}>
         <thead>
             <tr>
+                <th />
                 <th>アイテム名</th>
                 <th>ファイルの位置</th>
             </tr>
@@ -58,18 +61,20 @@ export interface IPropOneItem{
     onClick?(): void;
 }
 const OneItem = ({
-    item: {
-        id,
-        name,
-        fullpath,
-    },
+    item,
     group,
     onClick,
 }: IPropOneItem)=>{
+    const {
+        id,
+        name,
+        fullpath,
+    } = item;
     const attr = {
         onClick,
     };
     return <DraggableItem tagName="tr" id={id} group={group} attributes={attr}>
+        <td>{plugins.renderIcon(item)}</td>
         <td>{name}</td>
         <td>{fullpath}</td>
     </DraggableItem>;

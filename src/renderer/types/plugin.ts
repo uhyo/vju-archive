@@ -9,6 +9,10 @@ export interface Plugin{
      */
     canRenderItem(item: Item): boolean;
     /**
+     * Render an icon for this item.
+     */
+    renderIcon(item: Item): JSX.Element | null;
+    /**
      * Renders given item.
      */
     renderItem(item: Item): JSX.Element | null;

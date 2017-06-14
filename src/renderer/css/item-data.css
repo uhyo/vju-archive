@@ -1,3 +1,7 @@
+.name {
+  margin: 0;
+  padding: 4px;
+}
 .group-list {
   margin: 0.8em 0;
   padding: 0;

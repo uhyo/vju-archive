@@ -7,9 +7,14 @@ import {
     Item,
 } from '../../types/item';
 
+import Icon from '../../components/common/icon';
+
 export default class DefaultPlugin implements Plugin{
     canRenderItem(){
         return false;
+    }
+    renderIcon(){
+        return <Icon name="file-o" />;
     }
     renderItem(item: Item){
         return <div>

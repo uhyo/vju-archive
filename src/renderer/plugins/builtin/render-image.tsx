@@ -4,6 +4,8 @@ import {
 import * as React from 'react';
 import styled from 'styled-components';
 
+import Icon from '../../components/common/icon';
+
 import {
     Plugin,
 } from '../../types/plugin';
@@ -27,6 +29,9 @@ export default class RenderImagePlugin implements Plugin{
             return true;
         }
         return false;
+    }
+    renderIcon(){
+        return <Icon name="file-image-o" />;
     }
     renderItem({fullpath}: Item){
         return <ImgWrapper>
