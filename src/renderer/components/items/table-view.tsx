@@ -21,11 +21,16 @@ export interface IPropTableView{
      * Group to which items belong.
      */
     group?: string;
+    /**
+     * Change currently selected item.
+     */
+    onChangeCurrentItem?(item: string): void;
 }
 
 export default ({
     items,
     group,
+    onChangeCurrentItem,
 }: IPropTableView)=>{
     return <table className={styles.table}>
         <thead>
@@ -37,7 +42,11 @@ export default ({
         <tbody>{
             // TODO
             Object.keys(items).map(id=>{
-                return <OneItem key={id} item={items[id]} group={group} />;
+                const handleClick =
+                    onChangeCurrentItem && (()=>{
+                        onChangeCurrentItem(id);
+                    });
+                return <OneItem key={id} item={items[id]} group={group} onClick={handleClick} />;
             })
         }</tbody>
     </table>;
@@ -46,6 +55,7 @@ export default ({
 export interface IPropOneItem{
     item:Item;
     group?: string;
+    onClick?(): void;
 }
 const OneItem = ({
     item: {
@@ -54,8 +64,12 @@ const OneItem = ({
         fullpath,
     },
     group,
+    onClick,
 }: IPropOneItem)=>{
-    return <DraggableItem tagName="tr" id={id} group={group}>
+    const attr = {
+        onClick,
+    };
+    return <DraggableItem tagName="tr" id={id} group={group} attributes={attr}>
         <td>{name}</td>
         <td>{fullpath}</td>
     </DraggableItem>;

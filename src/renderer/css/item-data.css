@@ -1,0 +1,13 @@
+.group-list {
+  margin: 0.8em 0;
+  padding: 0;
+}
+.group {
+  padding: 4px;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.group:hover {
+  background-color: var(--theme-background-l);
+}

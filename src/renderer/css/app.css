@@ -13,6 +13,10 @@
 .tree-group {
   flex: auto 1 0;
 }
+.item-data-panel {
+  flex: auto 0 0;
+  border-top: 1px solid var(--theme-text-color);
+}
 .options-panel {
   flex: auto 0 0;
   border-top: 1px solid var(--theme-text-color);

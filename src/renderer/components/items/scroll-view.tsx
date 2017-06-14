@@ -21,17 +21,26 @@ export interface IPropScrollView{
      * Group to which items belong.
      */
     group?: string;
+    /**
+     * Change currently selected item.
+     */
+    onChangeCurrentItem?(item: string): void;
 }
 
 export default ({
     items,
     group,
+    onChangeCurrentItem,
 }: IPropScrollView)=>{
     return <div>{
         /// TODO
         Object.keys(items).map(id=>{
             const item = items[id];
-            return <DraggableItem key={id} tagName="div" id={id} group={group}>
+            const onClick = onChangeCurrentItem && (()=> onChangeCurrentItem(id));
+            const attributes = {
+                onClick,
+            };
+            return <DraggableItem key={id} tagName="div" id={id} group={group} attributes={attributes}>
                 {plugins.renderItem(item)}
             </DraggableItem>;
         })

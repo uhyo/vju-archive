@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import TreeGroup from '../containers/tree-group';
 import Items from '../containers/items';
+import ItemData from '../containers/item-data';
 import OptionsPanel from '../containers/options-panel';
 
 import '../css/root.css';
@@ -14,6 +15,9 @@ export default class App extends React.Component<{}, {}>{
             <div className={styles.sideBar}>
                 <div className={styles.treeGroup}>
                     <TreeGroup/>
+                </div>
+                <div className={styles.itemDataPanel}>
+                    <ItemData/>
                 </div>
                 <div className={styles.optionsPanel}>
                     <OptionsPanel/>

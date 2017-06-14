@@ -2,6 +2,7 @@ import * as React from 'react';
 
 export interface IPropDraggableItem{
     tagName: keyof JSX.IntrinsicElements;
+    attributes?: React.HTMLAttributes<HTMLElement>;
     id: string;
     group?: string;
 }
@@ -11,6 +12,7 @@ export class DraggableItem extends React.Component<IPropDraggableItem, {}>{
             id,
             group,
             tagName,
+            attributes,
             children,
         } = this.props;
 
@@ -24,6 +26,7 @@ export class DraggableItem extends React.Component<IPropDraggableItem, {}>{
         };
 
         return React.createElement(tagName, {
+            ... (attributes || {}),
             draggable: true,
             onDragStart: handleDragStart,
         }, children);

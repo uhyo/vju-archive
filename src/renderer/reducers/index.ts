@@ -2,10 +2,18 @@ import {
     combineReducers,
 } from 'redux';
 
-import groupsReducer from './groups';
-import treeGroupReducer from './tree-group';
-import itemReducer from './items';
-import viewReducer from './view';
+import groupsReducer, {
+    GroupsState,
+} from './groups';
+import treeGroupReducer, {
+    GroupTreeState,
+} from './tree-group';
+import itemReducer, {
+    ItemsState,
+} from './items';
+import viewReducer, {
+    ViewState,
+} from './view';
 
 const reducer = combineReducers({
     groups: groupsReducer,
@@ -13,5 +21,13 @@ const reducer = combineReducers({
     items: itemReducer,
     view: viewReducer,
 });
+
+// これはinferされるけど一応
+export type State = {
+    groups: GroupsState;
+    treeGroup: GroupTreeState;
+    items: ItemsState;
+    view: ViewState;
+};
 
 export default reducer;
