@@ -21,6 +21,13 @@ const FitImg = styled.img`
     object-position: 50% 50%;
 `;
 
+const NonFitImg = styled.img`
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: 50% 50%;
+`;
+
 export default class RenderImagePlugin implements Plugin{
     canRenderItem({fullpath}: Item): boolean{
         const ext = extname(fullpath);
@@ -36,7 +43,7 @@ export default class RenderImagePlugin implements Plugin{
         if (fit === true){
             return <FitImg src={fullpath} />;
         }else{
-            return <img src={fullpath} />;
+            return <NonFitImg src={fullpath} />;
         }
     }
 }
