@@ -34,6 +34,9 @@ export default class OptionsPanel extends React.Component<IPropOptionsPanel, {}>
             label: '一覧表示',
         }, {
             value: 'scroll-view',
+            label: '連続表示',
+        }, {
+            value: 'single-view',
             label: '個別表示',
         }];
         const onChange = (type: ViewType)=>{

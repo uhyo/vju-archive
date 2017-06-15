@@ -9,6 +9,7 @@ import {
 
 import TableView from './table-view';
 import ScrollView from './scroll-view';
+import SingleView from './single-view';
 
 import * as styles from '../../css/item-list.css';
 
@@ -26,6 +27,7 @@ export default class ItemList extends React.Component<IPropItemList, {}>{
             },
             view: {
                 view,
+                currentItem,
             },
             group,
             onChangeCurrentItem,
@@ -38,6 +40,13 @@ export default class ItemList extends React.Component<IPropItemList, {}>{
             viewelm = <TableView items={items} group={group} onChangeCurrentItem={onChangeCurrentItem} />;
         }else if (view.type === 'scroll-view'){
             viewelm = <ScrollView items={items} group={group} onChangeCurrentItem={onChangeCurrentItem} />;
+        }else if (view.type === 'single-view'){
+            if (currentItem == null){
+                viewelm = null;
+            }else{
+                const item = items[currentItem];
+                viewelm = <SingleView item={item} />;
+            }
         }
         return <div className={styles.listWrapper}>
             <div className={styles.listHeader}>

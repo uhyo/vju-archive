@@ -4,6 +4,7 @@
 export type ViewType =
     | 'table-view' 
     | 'scroll-view'
+    | 'single-view'
 ;
 export interface TableView{
     type: ViewType;
