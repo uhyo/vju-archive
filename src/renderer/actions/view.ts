@@ -24,7 +24,19 @@ export function setCurrentItemAction(item: string): SetCurrentItemAction{
     };
 }
 
+export interface FocusItemAction{
+    type: 'view:focus-item';
+    item: string;
+}
+export function focusItemAction(item: string): FocusItemAction{
+    return {
+        type: 'view:focus-item',
+        item,
+    };
+}
+
 export type ViewAction =
     | ChangeViewAction
     | SetCurrentItemAction
+    | FocusItemAction
 ;

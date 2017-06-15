@@ -5,6 +5,7 @@ import {
 
 import {
     setCurrentItemAction,
+    focusItemAction,
 } from '../actions/view';
 
 import ItemListComponent from '../components/items/list';
@@ -24,6 +25,9 @@ const ItemListContainer: React.ComponentClass<{}> = connect(
     (dispatch)=>({
         onChangeCurrentItem(id: string){
             dispatch(setCurrentItemAction(id));
+        },
+        onFocusItem(id: string){
+            dispatch(focusItemAction(id));
         },
     }),
 )(ItemListComponent);

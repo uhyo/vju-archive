@@ -27,12 +27,17 @@ export interface IPropTableView{
      * Change currently selected item.
      */
     onChangeCurrentItem?(item: string): void;
+    /**
+     * Focus on some item.
+     */
+    onFocusItem?(item: string): void;
 }
 
 export default ({
     items,
     group,
     onChangeCurrentItem,
+    onFocusItem,
 }: IPropTableView)=>{
     return <table className={styles.table}>
         <thead>
@@ -49,7 +54,11 @@ export default ({
                     onChangeCurrentItem && (()=>{
                         onChangeCurrentItem(id);
                     });
-                return <OneItem key={id} item={items[id]} group={group} onClick={handleClick} />;
+                const handleDblClick =
+                    onFocusItem && (()=>{
+                        onFocusItem(id);
+                    });
+                return <OneItem key={id} item={items[id]} group={group} onClick={handleClick} onDoubleClick={handleDblClick} />;
             })
         }</tbody>
     </table>;
@@ -59,11 +68,13 @@ export interface IPropOneItem{
     item:Item;
     group?: string;
     onClick?(): void;
+    onDoubleClick?(): void;
 }
 const OneItem = ({
     item,
     group,
     onClick,
+    onDoubleClick,
 }: IPropOneItem)=>{
     const {
         id,
@@ -72,6 +83,7 @@ const OneItem = ({
     } = item;
     const attr = {
         onClick,
+        onDoubleClick,
     };
     return <DraggableItem tagName="tr" id={id} group={group} attributes={attr}>
         <td>{plugins.renderIcon(item)}</td>
