@@ -10,6 +10,8 @@ import {
     DraggableItem,
 } from './draggable';
 
+import * as styles from '../../css/scroll-view.css';
+
 // 画像をひとつひとつ表示する感じ
 
 export interface IPropScrollView{
@@ -46,6 +48,7 @@ export default ({
             const attributes = {
                 onClick,
                 onDoubleClick,
+                className: styles.oneItem,
             };
             return <DraggableItem key={id} tagName="div" id={id} group={group} attributes={attributes}>
                 {plugins.renderItem(item)}

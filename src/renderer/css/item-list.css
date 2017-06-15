@@ -1,5 +1,8 @@
 .list-wrapper {
 }
+.list-wrapper-single {
+  height: 100%;
+}
 
 .list-header {
   padding: 4px;
@@ -8,4 +11,8 @@
 
 /* List part of items. */
 .list-main {
+}
+
+.list-main-single {
+  height: 100%;
 }

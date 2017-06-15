@@ -15,5 +15,13 @@ export interface Plugin{
     /**
      * Renders given item.
      */
-    renderItem(item: Item): JSX.Element | null;
+    renderItem(item: Item, options: RenderItemOptions): JSX.Element | null;
+}
+
+export interface RenderItemOptions{
+    /**
+     * Rendered image should fit into given box.
+     * Defaults to false.
+     */
+    fit: boolean;
 }

@@ -37,12 +37,15 @@ export default class ItemList extends React.Component<IPropItemList, {}>{
         // Temporal
 
         const keys = Object.keys(items);
+        let listing = true;
         let viewelm;
+        let lengthinfo;
         if (view.type === 'table-view'){
             viewelm = <TableView items={items} group={group} onChangeCurrentItem={onChangeCurrentItem} onFocusItem={onFocusItem} />;
         }else if (view.type === 'scroll-view'){
             viewelm = <ScrollView items={items} group={group} onChangeCurrentItem={onChangeCurrentItem} onFocusItem={onFocusItem} />;
         }else if (view.type === 'single-view'){
+            listing = false;
             if (currentItem == null){
                 viewelm = null;
             }else{
@@ -50,11 +53,17 @@ export default class ItemList extends React.Component<IPropItemList, {}>{
                 viewelm = <SingleView item={item} />;
             }
         }
-        return <div className={styles.listWrapper}>
-            <div className={styles.listHeader}>
-                {keys.length} items.
-            </div>
-            <div className={styles.listMain}>
+        if (listing){
+            lengthinfo =
+                <div className={styles.listHeader}>
+                    {keys.length} items.
+                </div>;
+        }else{
+            lengthinfo = null;
+        }
+        return <div className={styles.listWrapper + (view.type === 'single-view' ? ' '+styles.listWrapperSingle : '')}>
+            {lengthinfo}
+            <div className={styles.listMain + (view.type === 'single-view' ? ' '+styles.listMainSingle : '')}>
                 {viewelm}
             </div>
         </div>;

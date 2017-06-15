@@ -1,6 +1,7 @@
 // Plugin manager.
 import {
     Plugin,
+    RenderItemOptions,
 } from '../types/plugin';
 import {
     Item,
@@ -8,6 +9,12 @@ import {
 
 import DefaultPlugin from './builtin/default-plugin';
 
+/**
+ * Default values for RenderItemOptions
+ */
+const defaultRenderItemOptions: Readonly<RenderItemOptions> = {
+    fit: false,
+};
 
 export default class PluginManager{
     protected plugins: Array<Plugin> = [];
@@ -22,19 +29,30 @@ export default class PluginManager{
                 return p.renderIcon(item);
             }
         }
-        return this.defaultPlugin.renderItem(item);
+        return this.defaultPlugin.renderIcon(item);
     }
 
     /**
      * Render given item using registered plugins.
      */
-    renderItem(item: Item){
-        for (const p of this.plugins){
-            if (p.canRenderItem(item)){
-                return p.renderItem(item);
+    renderItem(item: Item, options?: Partial<RenderItemOptions>){
+        const options2: RenderItemOptions = {
+            ... defaultRenderItemOptions,
+        };
+        if (options != null){
+            for (const key of (Object.keys(options) as Array<keyof RenderItemOptions>)){
+                const v = options[key];
+                if (v != null){
+                    options2[key] = v;
+                }
             }
         }
-        return this.defaultPlugin.renderItem(item);
+        for (const p of this.plugins){
+            if (p.canRenderItem(item)){
+                return p.renderItem(item, options2);
+            }
+        }
+        return this.defaultPlugin.renderItem(item, options2);
     }
 
     /**

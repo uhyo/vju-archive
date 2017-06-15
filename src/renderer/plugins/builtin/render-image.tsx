@@ -8,18 +8,17 @@ import Icon from '../../components/common/icon';
 
 import {
     Plugin,
+    RenderItemOptions,
 } from '../../types/plugin';
 import {
     Item,
 } from '../../types/item';
 
-const ImgWrapper = styled.div`
-    margin: 1em 0;
-
-    text-align: center;
-`;
-const Img = styled.img`
-    max-width: 100%;
+const FitImg = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: 50% 50%;
 `;
 
 export default class RenderImagePlugin implements Plugin{
@@ -33,9 +32,11 @@ export default class RenderImagePlugin implements Plugin{
     renderIcon(){
         return <Icon name="file-image-o" />;
     }
-    renderItem({fullpath}: Item){
-        return <ImgWrapper>
-            <Img src={fullpath} />
-        </ImgWrapper>
+    renderItem({fullpath}: Item, {fit}: RenderItemOptions){
+        if (fit === true){
+            return <FitImg src={fullpath} />;
+        }else{
+            return <img src={fullpath} />;
+        }
     }
 }

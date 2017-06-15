@@ -8,7 +8,7 @@ import {
     focusItemAction,
 } from '../actions/view';
 
-import ItemListComponent from '../components/items/list';
+import ItemListComponent from '../components/items/index';
 
 const ItemListContainer: React.ComponentClass<{}> = connect(
     ({

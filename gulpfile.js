@@ -42,7 +42,7 @@ gulp.task('watch-jsx', ['watch-tsc', 'watch-css'], ()=>{
 
 // ---------- css
 gulp.task('css', ()=>{
-    const source = gulp.src(['./src/**/*.css'])
+    const source = gulp.src(['src/**/*.css'])
     .pipe(changed('dist-es6/', {extension: '.css.d.ts'}));
 
     // typed-css-modules
@@ -56,7 +56,7 @@ gulp.task('css', ()=>{
     source.pipe(gulp.dest('dist-es6/'));
 })
 gulp.task('watch-css', ['css'], ()=>{
-    gulp.watch('./src/**/*.css', ['css']);
+    gulp.watch('src/**/*.css', ['css']);
 });
 
 /*

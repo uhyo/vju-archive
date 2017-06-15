@@ -22,7 +22,13 @@ export default ({
     const {
         id,
     } = item;
-    return <DraggableItem tagName="div" id={id}>
-        {plugins.renderItem(item)}
+    const attributes = {
+        style: {
+            height: '100%',
+            fontSize: '0',
+        },
+    };
+    return <DraggableItem tagName="div" id={id} attributes={attributes}>
+        {plugins.renderItem(item, {fit: true})}
     </DraggableItem>;
 };
