@@ -2,12 +2,14 @@
 import {
     Plugin,
     RenderItemOptions,
+    RecognizeResult,
 } from '../types/plugin';
 import {
     Item,
 } from '../types/item';
 
 import DefaultPlugin from './builtin/default-plugin';
+
 
 /**
  * Default values for RenderItemOptions
@@ -17,8 +19,20 @@ const defaultRenderItemOptions: Readonly<RenderItemOptions> = {
 };
 
 export default class PluginManager{
-    protected plugins: Array<Plugin> = [];
-    protected defaultPlugin: Plugin = new DefaultPlugin();
+    protected plugins: Array<Plugin<any>> = [];
+    protected defaultPlugin: Plugin<{}> = new DefaultPlugin();
+    /**
+     * Recognize given file.
+     */
+    async recognizeFile(fullpath: string): Promise<RecognizeResult<any> | undefined>{
+        for (const p of this.plugins){
+            const r = await p.recognizeFile(fullpath);
+            if (r != null){
+                return r;
+            }
+        }
+        return undefined;
+    }
 
     /**
      * Render an icon for given item using registerd plugins.
@@ -58,7 +72,7 @@ export default class PluginManager{
     /**
      * Add new plugin.
      */
-    addPlugin(plugin: Plugin){
+    addPlugin<M>(plugin: Plugin<M>){
         this.plugins.push(plugin);
     }
 }

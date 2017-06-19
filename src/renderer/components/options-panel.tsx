@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import {
-    ViewType,
     View,
 } from '../types/view';
 import {
@@ -16,6 +15,8 @@ export interface IPropOptionsPanel{
     view: ViewState;
     changeView(view: View): void;
 }
+
+type ViewType = 'table-view' | 'scroll-view' | 'single-view';
 
 const SelectView: new()=> Select<ViewType> = Select;
 
@@ -40,10 +41,24 @@ export default class OptionsPanel extends React.Component<IPropOptionsPanel, {}>
             label: '個別表示',
         }];
         const onChange = (type: ViewType)=>{
-            const view = {
-                type,
-            };
-            changeView(view);
+            switch (type){
+                case 'table-view':
+                    changeView({
+                        type,
+                    });
+                    break;
+                case 'scroll-view':
+                    changeView({
+                        type,
+                    });
+                    break;
+                case 'single-view':
+                    changeView({
+                        type,
+                        zoom: 1,
+                    });
+                    break;
+            }
         };
         return <div>
             <SelectView values={contents} currentValue={type} onChange={onChange} />

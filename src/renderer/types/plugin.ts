@@ -3,7 +3,19 @@ import {
     Item,
 } from '../types/item';
 
-export interface Plugin{
+/**
+ * Result of recognized metadata
+ */
+export interface RecognizeResult<M>{
+    type: string;
+    metadata: M;
+}
+
+export interface Plugin<M>{
+    /**
+     * Recognizes given file.
+     */
+    recognizeFile(fullpath: string): Promise<RecognizeResult<M> | undefined>;
     /**
      * Determines this plugin can render given item.
      */

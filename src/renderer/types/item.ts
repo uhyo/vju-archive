@@ -32,6 +32,14 @@ export interface ItemDoc{
      * Date of creation.
      */
     created: Date;
+    /**
+     * Type of item.
+     */
+    type: string;
+    /**
+     * Data specific to types
+     */
+    metadata: any;
 }
 
 export type Item = ItemDoc;

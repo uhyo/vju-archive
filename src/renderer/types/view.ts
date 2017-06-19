@@ -1,14 +1,19 @@
 // view: what is shown in the main pane?
 
 
-export type ViewType =
-    | 'table-view' 
-    | 'scroll-view'
-    | 'single-view'
-;
 export interface TableView{
-    type: ViewType;
+    type: 'table-view';
+}
+export interface ScrollView{
+    type: 'scroll-view';
+}
+export interface SingleView{
+    type: 'single-view';
+    zoom: number;
 }
 
 export type View =
-    TableView;
+    | TableView
+    | ScrollView
+    | SingleView
+;

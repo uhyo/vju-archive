@@ -9,7 +9,10 @@ import {
 
 import Icon from '../../components/common/icon';
 
-export default class DefaultPlugin implements Plugin{
+export default class DefaultPlugin implements Plugin<never>{
+    recognizeFile(){
+        return Promise.resolve(undefined);
+    }
     canRenderItem(){
         return false;
     }

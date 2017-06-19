@@ -11,6 +11,8 @@ import {
 import * as fs from 'fs';
 import * as path from 'path';
 
+import plugins from '../plugins';
+
 import {
     Action,
 } from '../actions/index';
@@ -29,6 +31,9 @@ import {
     ItemDoc,
     Item,
 } from '../types/item';
+import {
+    RecognizeResult,
+} from '../types/plugin';
 
 import db from './db';
 import {
@@ -160,6 +165,16 @@ function* loadOneFileSaga(fullpath: string){
         GROUP_UNDISPOSED,
     ];
 
+    // アイテムの情報をアレする
+    const rec: RecognizeResult<any> | undefined = yield plugins.recognizeFile(fullpath);
+    const {
+        type,
+        metadata,
+    } = rec || {
+        type: '',
+        metadata: null,
+    };
+
     const doc: ItemDoc = {
         id,
         name,
@@ -168,6 +183,8 @@ function* loadOneFileSaga(fullpath: string){
         hash,
         groups,
         created: stats.ctime,
+        type,
+        metadata,
     };
 
     yield db.getDb().then(db=> insertItem(db, doc));

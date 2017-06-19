@@ -51,6 +51,7 @@ export default function viewReducer(state: ViewState = initialData, action: Acti
                 ... state,
                 view: {
                     type: 'single-view',
+                    zoom: 1,
                 },
                 currentItem: action.item,
             };
