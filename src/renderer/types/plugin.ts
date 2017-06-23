@@ -36,4 +36,8 @@ export interface RenderItemOptions{
      * Defaults to false.
      */
     fit: boolean;
+    /**
+     * Additional styles given to element.
+     */
+    styles?: Record<string, string>;
 }

@@ -50,7 +50,7 @@ export default class ItemList extends React.Component<IPropItemList, {}>{
                 viewelm = null;
             }else{
                 const item = items[currentItem];
-                viewelm = <SingleView item={item} />;
+                viewelm = <SingleView item={item} zoom={view.zoom}/>;
             }
         }
         if (listing){

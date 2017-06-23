@@ -33,7 +33,7 @@ const FitImg = styled.img`
 const NonFitImg = styled.img`
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
+    object-fit: scale-down;
     object-position: 50% 50%;
 `;
 
@@ -76,11 +76,16 @@ export default class RenderImagePlugin implements Plugin<ImageMetadata>{
     renderIcon(){
         return <Icon name="file-image-o" />;
     }
-    renderItem({fullpath}: Item, {fit}: RenderItemOptions){
+    renderItem({fullpath, metadata}: Item, {fit, styles}: RenderItemOptions){
+        const {
+            width,
+            height,
+        }: ImageMetadata = metadata;
+        let styles2 = styles || {};
         if (fit === true){
-            return <FitImg src={fullpath} />;
+            return <FitImg src={fullpath} style={styles2}/>;
         }else{
-            return <NonFitImg src={fullpath} />;
+            return <NonFitImg src={fullpath} style={styles2} width={width} height={height}/>;
         }
     }
 }

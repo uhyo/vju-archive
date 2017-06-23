@@ -9,7 +9,7 @@ export interface ScrollView{
 }
 export interface SingleView{
     type: 'single-view';
-    zoom: number;
+    zoom: SingleZoomMode;
 }
 
 export type View =
@@ -17,3 +17,18 @@ export type View =
     | ScrollView
     | SingleView
 ;
+
+export interface SingleZoomModeWhole{
+    type: 'whole';
+}
+export interface SingleZoomModeZoom{
+    type: 'zoom';
+    width: number;
+    height: number;
+}
+
+export type SingleZoomMode =
+    | SingleZoomModeWhole
+    | SingleZoomModeZoom
+;
+

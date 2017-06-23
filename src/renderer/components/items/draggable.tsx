@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export interface IPropDraggableItem{
-    tagName: keyof JSX.IntrinsicElements;
+    tagName: React.ComponentType<any> | keyof JSX.IntrinsicElements;
     attributes?: React.HTMLAttributes<HTMLElement>;
     id: string;
     group?: string;
@@ -25,7 +25,7 @@ export class DraggableItem extends React.Component<IPropDraggableItem, {}>{
             e.dataTransfer.effectAllowed = 'copyMove';
         };
 
-        return React.createElement(tagName, {
+        return React.createElement(tagName as any, {
             ... (attributes || {}),
             draggable: true,
             onDragStart: handleDragStart,

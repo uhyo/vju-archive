@@ -55,7 +55,9 @@ export default class OptionsPanel extends React.Component<IPropOptionsPanel, {}>
                 case 'single-view':
                     changeView({
                         type,
-                        zoom: 1,
+                        zoom: {
+                            type: 'whole',
+                        },
                     });
                     break;
             }
