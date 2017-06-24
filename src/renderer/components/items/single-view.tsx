@@ -25,41 +25,59 @@ export interface IPropSingleView{
 }
 
 const NonFitWrapper = styled.div`
-    height: 100%;
-`;
-
-const DragWrapper = styled.div`
     position: relative;
     height: 100%;
 `;
 
-export default ({
-    item,
-    zoom,
-}: IPropSingleView)=>{
-    const {
-        id,
-    } = item;
-    if (zoom.type === 'whole'){
-        const imgStyle = {
-            position: 'absolute',
-            left: '0',
-            top: '0',
-            right: '0',
-            bottom: '0',
-            maxWidth: '100%',
-            maxHeight: '100%',
-            margin: 'auto',
-        };
-        return <NonFitWrapper>
-            <DraggableItem tagName={DragWrapper} id={id}>
+const DragWrapper = styled.div`
+    height: 100%;
+`;
+
+const WrapSpan = styled.span`
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: max-content;
+    height: max-content;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+`;
+
+export default class SingleView extends React.Component<IPropSingleView, {}>{
+    render(){
+        const {
+            item,
+            zoom,
+        } = this.props;
+        const {
+            id,
+        } = item;
+        if (zoom.type === 'whole'){
+            const imgStyle = {
+                position: 'absolute',
+                left: '0',
+                top: '0',
+                right: '0',
+                bottom: '0',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                margin: 'auto',
+            };
+            return <NonFitWrapper>
+                <DraggableItem tagName={DragWrapper} id={id}>
+                <WrapSpan>
                 {plugins.renderItem(item, {
-                    fit: false,
-                    styles: imgStyle,
+                    fit: true,
+                    styles: imgStyle && {},
                 })}
-            </DraggableItem>
-        </NonFitWrapper>;
-    }else{
-        return null;
+                </WrapSpan>
+                </DraggableItem>
+                </NonFitWrapper>;
+        }else{
+            return null;
+        }
     }
-};
+}

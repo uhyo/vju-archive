@@ -24,15 +24,15 @@ export interface ImageMetadata{
 }
 
 const FitImg = styled.img`
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
     object-position: 50% 50%;
 `;
 
 const NonFitImg = styled.img`
     max-width: 100%;
-    max-height: 100%;
+    height: auto;
     object-fit: scale-down;
     object-position: 50% 50%;
 `;
@@ -81,11 +81,14 @@ export default class RenderImagePlugin implements Plugin<ImageMetadata>{
             width,
             height,
         }: ImageMetadata = metadata;
-        let styles2 = styles || {};
+        const styles2 = styles || {};
+        const styles3 = {
+            ... styles2,
+        };
         if (fit === true){
-            return <FitImg src={fullpath} style={styles2}/>;
+            return <FitImg src={fullpath} style={styles3}/>;
         }else{
-            return <NonFitImg src={fullpath} style={styles2} width={width} height={height}/>;
+            return <NonFitImg src={fullpath} style={styles3} width={width} height={height}/>;
         }
     }
 }
