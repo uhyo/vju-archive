@@ -91,4 +91,17 @@ export default class RenderImagePlugin implements Plugin<ImageMetadata>{
             return <NonFitImg src={fullpath} style={styles3} width={width} height={height}/>;
         }
     }
+    getSize({type, metadata}: Item){
+        if (type === TYPE_IMAGE){
+            return {
+                width: metadata.width,
+                height: metadata.height,
+            };
+        }else{
+            return {
+                width: 0,
+                height: 0,
+            };
+        }
+    }
 }

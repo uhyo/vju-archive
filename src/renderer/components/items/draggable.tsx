@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export interface IPropDraggableItem{
     tagName: React.ComponentType<any> | keyof JSX.IntrinsicElements;
-    attributes?: React.HTMLAttributes<HTMLElement>;
+    attributes?: React.HTMLProps<HTMLElement>;
     id: string;
     group?: string;
 }
@@ -29,6 +29,7 @@ export class DraggableItem extends React.Component<IPropDraggableItem, {}>{
             ... (attributes || {}),
             draggable: true,
             onDragStart: handleDragStart,
+            ref: 'elm',
         }, children);
     }
 }

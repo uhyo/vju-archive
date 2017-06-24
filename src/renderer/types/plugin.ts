@@ -11,6 +11,14 @@ export interface RecognizeResult<M>{
     metadata: M;
 }
 
+/**
+ * Size of rendered item.
+ */
+export interface ItemRenderRect{
+    readonly width: number;
+    readonly height: number;
+}
+
 export interface Plugin<M>{
     /**
      * Recognizes given file.
@@ -28,6 +36,10 @@ export interface Plugin<M>{
      * Renders given item.
      */
     renderItem(item: Item, options: RenderItemOptions): JSX.Element | null;
+    /**
+     * Returns size of renderable item.
+     */
+    getSize(item: Item): ItemRenderRect;
 }
 
 export interface RenderItemOptions{

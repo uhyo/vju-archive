@@ -6,6 +6,9 @@ import {
 import {
     ViewState,
 } from '../../reducers/view';
+import {
+    View,
+} from '../../types/view';
 
 import TableView from './table-view';
 import ScrollView from './scroll-view';
@@ -19,6 +22,7 @@ export interface IPropItemList{
     group: string;
     onChangeCurrentItem(item: string): void;
     onFocusItem(item: string): void;
+    onChangeView(view: View): void;
 }
 export default class ItemList extends React.Component<IPropItemList, {}>{
     render(){
@@ -33,6 +37,7 @@ export default class ItemList extends React.Component<IPropItemList, {}>{
             group,
             onChangeCurrentItem,
             onFocusItem,
+            onChangeView,
         } = this.props;
         // Temporal
 
@@ -50,7 +55,12 @@ export default class ItemList extends React.Component<IPropItemList, {}>{
                 viewelm = null;
             }else{
                 const item = items[currentItem];
-                viewelm = <SingleView item={item} zoom={view.zoom}/>;
+                viewelm =
+                    <SingleView
+                        item={item}
+                        zoom={view.zoom}
+                        onChangeView={onChangeView}
+                    />;
             }
         }
         if (listing){

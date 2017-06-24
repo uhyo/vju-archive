@@ -24,4 +24,10 @@ export default class DefaultPlugin implements Plugin<never>{
             <p>ファイル<b>{item.name}</b>を描画できません。</p>
         </div>;
     }
+    getSize(){
+        return {
+            width: 0,
+            height: 0,
+        };
+    }
 }

@@ -6,7 +6,11 @@ import {
 import {
     setCurrentItemAction,
     focusItemAction,
+    changeViewAction,
 } from '../actions/view';
+import {
+    View,
+} from '../types/view';
 
 import ItemListComponent from '../components/items/index';
 
@@ -28,6 +32,9 @@ const ItemListContainer: React.ComponentClass<{}> = connect(
         },
         onFocusItem(id: string){
             dispatch(focusItemAction(id));
+        },
+        onChangeView(view: View){
+            dispatch(changeViewAction(view));
         },
     }),
 )(ItemListComponent);

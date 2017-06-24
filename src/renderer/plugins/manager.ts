@@ -3,12 +3,16 @@ import {
     Plugin,
     RenderItemOptions,
     RecognizeResult,
+    ItemRenderRect,
 } from '../types/plugin';
 import {
     Item,
 } from '../types/item';
 
 import DefaultPlugin from './builtin/default-plugin';
+
+// easy cache on items
+const cacheSize = Symbol('cache-item-size');
 
 
 /**
@@ -67,6 +71,24 @@ export default class PluginManager{
             }
         }
         return this.defaultPlugin.renderItem(item, options2);
+    }
+    /**
+     * Get size of given item.
+     */
+    getSize(item: Item): ItemRenderRect{
+        if ((item as any)[cacheSize]){
+            return (item as any)[cacheSize];
+        }
+        for (const p of this.plugins){
+            if (p.canRenderItem(item)){
+                const result = p.getSize(item);
+                (item as any)[cacheSize] = result;
+                return result;
+            }
+        }
+        const result = this.defaultPlugin.getSize(item);
+        (item as any)[cacheSize] = result;
+        return result;
     }
 
     /**
